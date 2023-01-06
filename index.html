@@ -34,5 +34,40 @@
      </form>
      <h2></h2>
      <h3></h3>
+
+     <script>
+
+         const form = document.getElementById('uploadForm');
+
+         const sendFiles = async () => {
+            //  get an object
+
+            const myFiles = document.getElementById('myfiles').files;
+
+            const formDate = new FormData()
+
+            object.keys(myFiles).forEach(key => {
+                formDate.append(myFiles.item(key).name, myFiles.item(key))
+            })
+
+            const response = await fetch('http://localhost:5000/upload', {
+                method: 'POST',
+                body: formDate,
+            })
+            const json = await response.json();
+            const h2 = document.querySelector('h2')
+            h2.textContent = `Status: ${json?.status}`
+
+            const h3 = document.querySelector('h3')
+            h3.textContent = json?.message
+
+            console.log(json);
+         }
+
+         form.addEventListener('submit', (e) => {
+             e.preventDefault();
+             sendFiles()
+         })
+     </script>
 </body>
 </html>
