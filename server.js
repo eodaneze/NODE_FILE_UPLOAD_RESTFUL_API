@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 app.get("" , (req,res) => {
-     res.json({"message": "This is the home page"})
+     res.sendFile(path.join(__dirname, "index.html"))
 })
 
 const PORT = process.env.PORT || 5000
