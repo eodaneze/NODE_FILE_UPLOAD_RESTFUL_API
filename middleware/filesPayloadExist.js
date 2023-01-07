@@ -4,4 +4,4 @@ const filesPayloadExists = (req, res, next) => {
      next()
 }
 
-module.exports = filesPayloadExists;
+module.exports = filesPayloadExists
