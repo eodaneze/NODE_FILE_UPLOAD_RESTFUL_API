@@ -2,6 +2,10 @@ const express = require("express");
 const fileupload = require("express-fileupload");
 const path = require("path");
 
+const fileExtLimiter = require("./middleware/fileExtLimiter")
+const fileSizeLimiter = require("./middleware/fileSizeLimiter")
+const filePayloadExists = require("./middleware/filesPayloadExist")
+
 const app = express();
 
 app.use(express.json());
