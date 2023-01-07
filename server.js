@@ -13,10 +13,22 @@ app.get("", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.post("/upload", fileupload({ createParentPath: true }), (req, res) => {
+app.post("/upload", fileupload({ createParentPath: true }), 
+filePayloadExists,
+fileExtLimiter(['.png', '.jpg', '.gif', '.jpeg']),
+fileSizeLimiter,
+
+(req, res) => {
     const files = req.files;
     console.log(files);
-    return res.json({status: 'logged', message: 'logged'});
+
+    Object.keys(files).forEach(key => {
+       const filepath = path.join(__dirname, 'files', files[key].name)
+       files[key].mv(filepath, (err) => {
+          if(err) return res.status(500).json({status: "error", message: err})
+       })
+    })
+    return res.json({status: 'success', message: 'logged'});
 });
 
 const PORT = process.env.PORT || 5000;
